@@ -1,0 +1,70 @@
+<div class="canvas-editor-panel">
+  <!-- Header with title and actions -->
+  <div class="canvas-header">
+    <div class="canvas-header-left">
+      <mat-icon class="canvas-icon">description</mat-icon>
+      <span class="canvas-title">{{ title || "Document" }}</span>
+    </div>
+    <div class="canvas-header-actions">
+      <button mat-icon-button (click)="copyToClipboard()" matTooltip="Copy">
+        <mat-icon>content_copy</mat-icon>
+      </button>
+      <button mat-icon-button (click)="downloadAsFile()" matTooltip="Download">
+        <mat-icon>download</mat-icon>
+      </button>
+      <button mat-icon-button (click)="close()" matTooltip="Close">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Formatting Toolbar -->
+  <div class="canvas-toolbar">
+    <!-- Heading dropdown -->
+    <button class="toolbar-heading-btn" [matMenuTriggerFor]="headingMenu">
+      {{ currentHeadingLabel }}
+      <mat-icon class="toolbar-dropdown-arrow">arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #headingMenu="matMenu" class="heading-menu">
+      @for (option of headingOptions; track option.tag) {
+        <button mat-menu-item (click)="formatHeading(option)" class="heading-menu-item">
+          <span [class]="'heading-preview heading-preview-' + option.tag">{{ option.label }}</span>
+          @if (currentHeadingLabel === option.label) {
+            <mat-icon class="heading-check">check</mat-icon>
+          }
+        </button>
+      }
+    </mat-menu>
+
+    <div class="toolbar-separator"></div>
+
+    <!-- Bold -->
+    <button mat-icon-button class="toolbar-btn" (click)="formatBold()" matTooltip="Bold">
+      <mat-icon>format_bold</mat-icon>
+    </button>
+
+    <!-- Italic -->
+    <button mat-icon-button class="toolbar-btn" (click)="formatItalic()" matTooltip="Italic">
+      <mat-icon>format_italic</mat-icon>
+    </button>
+
+    <!-- Unordered List -->
+    <button mat-icon-button class="toolbar-btn" (click)="formatUnorderedList()" matTooltip="Bulleted list">
+      <mat-icon>format_list_bulleted</mat-icon>
+    </button>
+
+    <!-- Ordered List -->
+    <button mat-icon-button class="toolbar-btn" (click)="formatOrderedList()" matTooltip="Numbered list">
+      <mat-icon>format_list_numbered</mat-icon>
+    </button>
+  </div>
+
+  <!-- WYSIWYG Editable Area -->
+  <div class="canvas-body">
+    <div class="canvas-preview"
+         #editableArea
+         contenteditable="true"
+         spellcheck="true">
+    </div>
+  </div>
+</div>
