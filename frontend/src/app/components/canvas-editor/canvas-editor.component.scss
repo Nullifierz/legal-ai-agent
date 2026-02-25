@@ -154,6 +154,11 @@
     align-items: center !important;
     justify-content: space-between !important;
     min-width: 180px;
+    background-color: var(--chat-panel-file-container-background-color);
+  }
+
+  .heading-menu-item:hover {
+    background-color: var(--chat-function-event-button-background-color, #303134);
   }
 
   .heading-preview {
